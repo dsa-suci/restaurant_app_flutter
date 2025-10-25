@@ -40,8 +40,9 @@ void main() async {
           create: (context) => SearchProvider(context.read<ApiServices>()),
         ),
         ChangeNotifierProvider(
-          create: (_) => FavoriteProvider(dbHelper: FavoriteDbHelper()),
+          create: (_) => FavoriteProvider(databaseHelper: FavoriteDbHelper()),
         ),
+
         ChangeNotifierProvider(create: (_) => ReminderProvider()),
       ],
       child: const MyApp(),

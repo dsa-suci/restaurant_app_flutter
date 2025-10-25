@@ -15,10 +15,10 @@ android {
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+        multiDexEnabled = true
     }
 
     compileOptions {
-        // ✅ Aktifkan desugaring
         isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -40,7 +40,6 @@ flutter {
 }
 
 dependencies {
-    // ✅ Update ke versi 2.1.4 sesuai permintaan plugin
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.4")
 
     implementation("androidx.core:core-ktx:1.12.0")

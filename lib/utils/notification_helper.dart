@@ -27,16 +27,16 @@ class NotificationHelper {
           now.year,
           now.month,
           now.day,
-          11,
-          0,
+          19,
+          43,
         ).isBefore(now)
-        ? tz.TZDateTime(tz.local, now.year, now.month, now.day + 1, 11, 0)
-        : tz.TZDateTime(tz.local, now.year, now.month, now.day, 11, 0);
+        ? tz.TZDateTime(tz.local, now.year, now.month, now.day + 1, 19, 43)
+        : tz.TZDateTime(tz.local, now.year, now.month, now.day, 19, 43);
 
     await _notifications.zonedSchedule(
       0,
       'Waktunya Makan Siang!',
-      'Ayo cari restoran favoritmu sekarang 🍽️',
+      'Ayo cari restoran favoritmu sekarang',
       scheduleTime,
       const NotificationDetails(
         android: AndroidNotificationDetails(

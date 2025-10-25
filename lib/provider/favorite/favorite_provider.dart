@@ -3,38 +3,37 @@ import 'package:restaurant_app/data/model/restaurant.dart';
 import 'package:restaurant_app/db/favorite_db_helper.dart';
 
 class FavoriteProvider extends ChangeNotifier {
-  final FavoriteDbHelper dbHelper;
-  List<Restaurant> _favorites = [];
-  bool _isLoading = false;
+  final FavoriteDbHelper databaseHelper;
 
-  FavoriteProvider({required this.dbHelper}) {
-    loadFavorites();
+  FavoriteProvider({required this.databaseHelper}) {
+    _getFavorites();
   }
 
+  List<Restaurant> _favorites = [];
   List<Restaurant> get favorites => _favorites;
-  bool get isLoading => _isLoading;
 
-  Future<void> loadFavorites() async {
-    _isLoading = true;
+  bool _isFavorite = false;
+  bool get isFavorite => _isFavorite;
+
+  Future<void> _getFavorites() async {
+    _favorites = await databaseHelper.getFavorites();
     notifyListeners();
+  }
 
-    _favorites = await dbHelper.getFavorites();
-
-    _isLoading = false;
+  Future<void> checkFavorite(String id) async {
+    _isFavorite = await databaseHelper.isFavorite(id);
     notifyListeners();
   }
 
   Future<void> addFavorite(Restaurant restaurant) async {
-    await dbHelper.insertFavorite(restaurant);
-    await loadFavorites();
+    await databaseHelper.insertFavorite(restaurant);
+    _isFavorite = true;
+    _getFavorites();
   }
 
   Future<void> removeFavorite(String id) async {
-    await dbHelper.removeFavorite(id);
-    await loadFavorites();
-  }
-
-  Future<bool> isFavorite(String id) async {
-    return await dbHelper.isFavorite(id);
+    await databaseHelper.removeFavorite(id);
+    _isFavorite = false;
+    _getFavorites();
   }
 }
