@@ -1,12 +1,12 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/timezone.dart' as tz;
-import 'package:timezone/data/latest.dart' as tzData;
+import 'package:timezone/data/latest.dart' as tz_data;
 
 class NotificationHelper {
   static final _notifications = FlutterLocalNotificationsPlugin();
 
   Future<void> init() async {
-    tzData.initializeTimeZones();
+    tz_data.initializeTimeZones();
     const androidInit = AndroidInitializationSettings('@mipmap/ic_launcher');
     const iOSInit = DarwinInitializationSettings();
     const initSettings = InitializationSettings(
@@ -27,11 +27,11 @@ class NotificationHelper {
           now.year,
           now.month,
           now.day,
-          19,
-          43,
+          11,
+          0,
         ).isBefore(now)
-        ? tz.TZDateTime(tz.local, now.year, now.month, now.day + 1, 19, 43)
-        : tz.TZDateTime(tz.local, now.year, now.month, now.day, 19, 43);
+        ? tz.TZDateTime(tz.local, now.year, now.month, now.day + 1, 11, 0)
+        : tz.TZDateTime(tz.local, now.year, now.month, now.day, 11, 0);
 
     await _notifications.zonedSchedule(
       0,

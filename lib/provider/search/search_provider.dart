@@ -25,7 +25,7 @@ class SearchProvider extends ChangeNotifier {
       final response = await _apiServices.searchRestaurants(query);
       _results = response;
     } catch (e) {
-      _errorMessage = 'Terjadi kesalahan: ${e.toString()}';
+      _errorMessage = e.toString().replaceFirst('Exception: ', '');
     }
 
     _isLoading = false;

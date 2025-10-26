@@ -27,6 +27,8 @@ class FavoriteScreen extends StatelessWidget {
                 child: ListTile(
                   leading: Image.network(
                     'https://restaurant-api.dicoding.dev/images/small/${restaurant.pictureId}',
+                    errorBuilder: (context, error, stackTrace) =>
+                        const Icon(Icons.error),
                     width: 60,
                     fit: BoxFit.cover,
                   ),

@@ -16,7 +16,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
       context.read<RestaurantListProvider>().fetchRestaurantList();
     });
   }
@@ -49,9 +50,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   );
                 },
               ),
-            RestaurantListErrorState(error: var message) => Center(
-              child: Text(message),
+            RestaurantListErrorState(error: var message) => Padding(
+              padding: const EdgeInsets.all(16),
+              child: Center(child: Text(message)),
             ),
+
             _ => const SizedBox(),
           };
         },

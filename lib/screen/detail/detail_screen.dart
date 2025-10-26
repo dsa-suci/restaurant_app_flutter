@@ -56,7 +56,10 @@ class _DetailScreenState extends State<DetailScreen> {
           if (state is RestaurantDetailLoadingState) {
             return const Center(child: CircularProgressIndicator());
           } else if (state is RestaurantDetailErrorState) {
-            return Center(child: Text(state.message));
+            return Padding(
+              padding: const EdgeInsets.all(16),
+              child: Center(child: Text(state.message)),
+            );
           } else if (state is RestaurantDetailLoadedState) {
             final restaurant = state.restaurant;
 
@@ -73,6 +76,8 @@ class _DetailScreenState extends State<DetailScreen> {
                         tag: restaurant.pictureId,
                         child: Image.network(
                           'https://restaurant-api.dicoding.dev/images/medium/${restaurant.pictureId}',
+                          errorBuilder: (context, error, stackTrace) =>
+                              const Icon(Icons.error),
                         ),
                       ),
                       const SizedBox(height: 16),
@@ -176,7 +181,7 @@ class _DetailScreenState extends State<DetailScreen> {
                             ),
                           ),
                         );
-                      }).toList(),
+                      }),
                     ],
                   ),
                 );

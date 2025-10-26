@@ -57,7 +57,10 @@ class _SearchScreenState extends State<SearchScreen> {
                 }
 
                 if (provider.errorMessage != null) {
-                  return Center(child: Text(provider.errorMessage!));
+                  return Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Center(child: Text(provider.errorMessage!)),
+                  );
                 }
 
                 if (provider.results.isEmpty) {
@@ -71,6 +74,8 @@ class _SearchScreenState extends State<SearchScreen> {
                     return ListTile(
                       leading: Image.network(
                         'https://restaurant-api.dicoding.dev/images/small/${restaurant.pictureId}',
+                        errorBuilder: (context, error, stackTrace) =>
+                            const Icon(Icons.error),
                         width: 50,
                         fit: BoxFit.cover,
                       ),

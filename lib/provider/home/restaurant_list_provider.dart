@@ -8,7 +8,6 @@ class RestaurantListProvider extends ChangeNotifier {
   RestaurantListProvider(this._apiServices);
 
   RestaurantListResultState _resultState = RestaurantListNoneState();
-
   RestaurantListResultState get resultState => _resultState;
 
   Future<void> fetchRestaurantList() async {
@@ -20,12 +19,12 @@ class RestaurantListProvider extends ChangeNotifier {
 
       if (result.error) {
         _resultState = RestaurantListErrorState(result.message);
-        notifyListeners();
       } else {
         _resultState = RestaurantListLoadedState(result.restaurants);
       }
     } catch (e) {
-      _resultState = RestaurantListErrorState('Error: ${e.toString()}');
+      final message = e.toString().replaceFirst('Exception: ', '');
+      _resultState = RestaurantListErrorState(message);
     } finally {
       notifyListeners();
     }
